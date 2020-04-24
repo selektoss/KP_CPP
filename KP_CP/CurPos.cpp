@@ -18,12 +18,12 @@ void ClearScreen()
 	hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (hStdOut == INVALID_HANDLE_VALUE) return;
 
-	/* Get the number of cells in the current buffer */
+	
 	if (!GetConsoleScreenBufferInfo(hStdOut, &csbi)) return;
 	csbi.dwSize.X = 12; csbi.dwSize.Y = 10;
 	cellCount = csbi.dwSize.X * csbi.dwSize.Y;
 
-	/* Fill the entire buffer with spaces */
+	
 	if (!FillConsoleOutputCharacter(
 		hStdOut,
 		(TCHAR)' ',
@@ -32,7 +32,7 @@ void ClearScreen()
 		&count
 	)) return;
 
-	/* Fill the entire buffer with the current colors and attributes */
+	
 	if (!FillConsoleOutputAttribute(
 		hStdOut,
 		csbi.wAttributes,
@@ -41,6 +41,6 @@ void ClearScreen()
 		&count
 	)) return;
 
-	/* Move the cursor home */
+	
 	SetConsoleCursorPosition(hStdOut, homeCoords);
 };

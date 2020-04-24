@@ -43,19 +43,26 @@ void DrawHelpTextBox(const ModelOBJ* form)
 	uint16_t charcout(2); uint16_t* tmpPTR = const_cast<uint16_t*>(&form->lineCountTextHelp); *tmpPTR = 0;
 	for (uint16_t iter(0); iter < form->sizeMenu; ++iter)
 	{
-		form->lineCountTextHelp < (form->Menu + iter)->txtHelp.length() ? *tmpPTR = static_cast<uint16_t>(((form->Menu + iter))->txtHelp.length()) : NULL;
+		form->lineCountTextHelp < (form->Menu + iter)->txtHelp.length() ? 
+			*tmpPTR = static_cast<uint16_t>(((form->Menu + iter))->txtHelp.length()) : NULL;
 	}
 	*tmpPTR = (form->lineCountTextHelp / (form->MenuWeight - 2)) + charcout; tmpPTR = nullptr;
 	uint16_t tAG(217), tAG1(192), iterY(0);
  	for (uint16_t iterX(0); iterX <= form->lineCountTextHelp; iterX += form->lineCountTextHelp, ++iterY, tAG -= 25, tAG1 += 25)
 	{
-		SetCurPos(form->coordXY.X - (form->MenuWeight + form->border), (form->coordXY.Y - (form->sizeMenu + (form->border << 1))) - iterX);
+		SetCurPos(form->coordXY.X - (form->MenuWeight + form->border), 
+			(form->coordXY.Y - (form->sizeMenu + (form->border << 1))) - iterX);
 		std::cout << char(tAG1 + iterY) << std::string(form->MenuWeight - charcout, '\xC4') << char(tAG - iterY);
 	}
 	for (uint16_t iter(0); iter < form->lineCountTextHelp - 1; ++iter)
 	{
-		SetCurPos(form->coordXY.X - (form->MenuWeight + form->border), (form->coordXY.Y - (form->sizeMenu + (form->border << 1) + (form->lineCountTextHelp - 1))) + iter); std::cout << char(179);
-		SetCurPos(form->coordXY.X - (form->border + 1), (form->coordXY.Y - (form->sizeMenu + (form->border << 1) + (form->lineCountTextHelp - 1))) + iter); std::cout << char(179);
+		SetCurPos(form->coordXY.X - (form->MenuWeight + form->border), 
+			(form->coordXY.Y - (form->sizeMenu + (form->border << 1) + (form->lineCountTextHelp - 1))) + iter); 
+		std::cout << char(179);
+
+		SetCurPos(form->coordXY.X - (form->border + 1), 
+			(form->coordXY.Y - (form->sizeMenu + (form->border << 1) + (form->lineCountTextHelp - 1))) + iter); 
+		std::cout << char(179);
 	}
 };
 
@@ -130,7 +137,9 @@ void DrawContentDataBox	(const ModelOBJ* form, char *&titleContent, char**&nameS
 					cout << char(194 - ch);
 				}
 			}
-			SetCurPos(static_cast<uint16_t>((((form->border + form->weightContent + 1) - (form->weightContent - Summ)) - (minLenColumnSection[iterMas] >> 1)) - ((strlen(*(nameSection + iterMas)) + 1) >> 1)), (form->headerHeight + 3));
+			SetCurPos(static_cast<uint16_t>((((form->border + form->weightContent + 1) - (form->weightContent - Summ)) - 
+				(minLenColumnSection[iterMas] >> 1)) - ((strlen(*(nameSection + iterMas)) + 1) >> 1)), (form->headerHeight + 3));
+
 			setlocale(LC_ALL, ""); SetConsoleTextAttribute(poinOut, FOREGROUND_GREEN);
 			cout << *(nameSection + iterMas); setlocale(LC_ALL, "C");
 			SetConsoleTextAttribute(poinOut, form->consoleATR);
