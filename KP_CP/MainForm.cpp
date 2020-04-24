@@ -103,7 +103,7 @@ void DrawContentDataBox	(const ModelOBJ* form, char *&titleContent, char**&nameS
 				cout << string(((form->weightContent >> 1) - (lenTitle >> 1)) - iterY, '\xCD') << char(187);
 			}
 		}
-		GetConsoleScreenBufferInfo(poinOut, &infoConsole); DWORD* tmpD = const_cast<DWORD*>(&form->consoleATR);
+		GetConsoleScreenBufferInfo(poinOut, &infoConsole); WORD* tmpD = const_cast<WORD*>(&form->consoleATR);
 		*tmpD = infoConsole.wAttributes;
 		for (uint16_t iter(0); iter < (form->coordXY.Y - (form->border << 1)); ++iter)
 		{

@@ -30,7 +30,9 @@ ModelOBJ*& LoadObjectForm(void)
 
 void UpdateMenu(const ModelOBJ* form, const int& chois)
 {
-	uint16_t XYtemp[2] = { form->coordXY.X - (form->border + (form->MenuWeight)), form->coordXY.Y - (form->border + form->sizeMenu) };
+	uint16_t XYtemp[2] = { static_cast<uint16_t>(form->coordXY.X - (form->border + (form->MenuWeight))), 
+		static_cast<uint16_t>(form->coordXY.Y - (form->border + form->sizeMenu)) };
+
 	SetCurPos(*XYtemp, *(XYtemp + 1)); setlocale(LC_ALL, "");
 	using namespace std;
 
@@ -43,7 +45,7 @@ void UpdateMenu(const ModelOBJ* form, const int& chois)
 			cout << string(form->MenuWeight, '\x20');
 			SetCurPos(((form->coordXY.X - (form->border + (form->MenuWeight >> 1))) - ((*(form->ArrLenTitleMenu + iter)) >> 1)), *(XYtemp + 1) + iter);
 			cout << form->Menu[iter].nameButton;
-			uint16_t lenghtStrHelpTxt = form->Menu[iter].txtHelp.length();
+			uint16_t lenghtStrHelpTxt = static_cast<uint16_t>(form->Menu[iter].txtHelp.length());
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FB | FG | FR | BBLACK);
 
 			for (uint16_t iterV(0), nextPosition(0); iterV < form->lineCountTextHelp - 1; ++iterV, nextPosition += (form->MenuWeight - 2))

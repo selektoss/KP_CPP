@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuTitle.hpp" />
+    <ClInclude Include="PersonData.hpp" />
     <ClInclude Include="__CurPosition__.hpp" />
     <ClInclude Include="__GetData__.hpp" />
     <ClInclude Include="__Get_SetSizeConsole__.hpp" />

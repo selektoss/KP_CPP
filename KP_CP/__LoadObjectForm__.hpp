@@ -1,6 +1,5 @@
 #pragma once
 #include "MenuTitle.hpp"
-#include <Windows.h>
 
 ModelOBJ*& LoadObjectForm(void);
 

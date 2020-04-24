@@ -15,6 +15,6 @@ typedef struct LoBject
 	uint16_t MenuWeight, lineCountTextHelp, sizeMenu, heightContent, weightContent, countColumnTitle; 
 	uint16_t* ArrLenTitleMenu; uint16_t* minLenColumnSection;
 	button* Menu;
-	COORD  coordXY; DWORD consoleATR;
-
+	COORD  coordXY; WORD consoleATR;
+	
 }ModelOBJ;
