@@ -16,5 +16,11 @@ typedef struct LoBject
 	uint16_t* ArrLenTitleMenu; uint16_t* minLenColumnSection;
 	button* Menu;
 	COORD  coordXY; WORD consoleATR;
+	LoBject()
+	{
+		MenuWeight = lineCountTextHelp = sizeMenu = heightContent = weightContent = countColumnTitle = 0;
+		ArrLenTitleMenu = nullptr; minLenColumnSection = nullptr; Menu = nullptr;
+		coordXY = { 0,0 }; consoleATR = 0;
+	}
 	
 }ModelOBJ;

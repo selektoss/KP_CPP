@@ -85,7 +85,7 @@ void DrawContentDataBox	(const ModelOBJ* form, char *&titleContent, char**&nameS
 	using namespace std; CONSOLE_SCREEN_BUFFER_INFO infoConsole; uint16_t lenTitle(static_cast<uint16_t>(strlen(titleContent) - 1));
 	uint16_t* tmpH = const_cast<uint16_t*>(&form->heightContent); uint16_t* tmpW = const_cast<uint16_t*>(&form->weightContent);
 	*tmpW = form->coordXY.X - (((form->border << 1) + form->MenuWeight) + form->border);
-	*tmpH = form->coordXY.Y - (form->border + form->headerHeight); HANDLE poinOut(GetStdHandle(STD_OUTPUT_HANDLE));
+	*tmpH = form->coordXY.Y - ((form->border << 1) + form->headerHeight); HANDLE poinOut(GetStdHandle(STD_OUTPUT_HANDLE));
 	tmpW = tmpH = nullptr;
 	SetCurPos(form->border, form->headerHeight);
 	cout << char(201) << string(((form->weightContent >> 1) - (lenTitle >> 1)) - 2, '\xCD') << char(185);
@@ -118,7 +118,7 @@ void DrawContentDataBox	(const ModelOBJ* form, char *&titleContent, char**&nameS
 		}
 		uint16_t* tmpArr = const_cast<uint16_t*&>(form->minLenColumnSection);
 		tmpArr = new uint16_t[form->countColumnTitle]; uint16_t iterZ(0);
-		uint16_t minLenColumnSection[] = { 4U, 32U, 10U, 10U, 7U, 5U, 4U, 4U, 4U, 10U }; uint16_t Summ(0);
+		uint16_t minLenColumnSection[] = { 4U, 30U, 10U, 10U, 7U, 5U, 4U, 4U, 4U, 10U }; uint16_t Summ(0);
 		while (iterZ < form->countColumnTitle)
 			tmpArr[iterZ++] = minLenColumnSection[iterZ];
 		uint16_t sizeM(sizeof(minLenColumnSection) >> 1);

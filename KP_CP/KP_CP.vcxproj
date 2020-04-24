@@ -138,21 +138,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddEmployee.cpp" />
     <ClCompile Include="CurPos.cpp" />
     <ClCompile Include="GetDataResource.cpp" />
     <ClCompile Include="GetDisp_SetSizeConsole.cpp" />
     <ClCompile Include="LoadObjectForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="SaveReadLocalFileData.cpp" />
     <ClCompile Include="StartPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuTitle.hpp" />
     <ClInclude Include="PersonData.hpp" />
+    <ClInclude Include="__AddEmployee__.hpp" />
     <ClInclude Include="__CurPosition__.hpp" />
     <ClInclude Include="__GetData__.hpp" />
     <ClInclude Include="__Get_SetSizeConsole__.hpp" />
     <ClInclude Include="__LoadObjectForm__.hpp" />
     <ClInclude Include="__MainForm__.hpp" />
+    <ClInclude Include="__SaveReadLocalFileData__.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KP_CP.rc" />

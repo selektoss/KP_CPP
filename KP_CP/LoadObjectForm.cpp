@@ -25,6 +25,7 @@ ModelOBJ*& LoadObjectForm(void)
 	DrawMenuBox(form->coordXY, form->sizeMenu, form->border, form->ArrLenTitleMenu, form->MenuWeight, form->Menu);
 	DrawHelpTextBox(form);
 	DrawContentDataBox(form, titleContent, nameSection);
+	ReClearScreenContentBoxDraw(*form);
 	return form;
 };
 

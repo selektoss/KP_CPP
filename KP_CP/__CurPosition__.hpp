@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
+#include "MenuTitle.hpp"
 void SetCurPos(const uint16_t&, const uint16_t&);
-
-void ClearScreen();
+void ReClearScreenContentBoxDraw(ModelOBJ&);
