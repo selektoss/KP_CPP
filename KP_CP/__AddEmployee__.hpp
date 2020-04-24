@@ -1,4 +1,5 @@
 #pragma once
 #include "PersonData.hpp"
 
-void InsertListData(ListPerson*& pointBeginList);
+void AddInfoProfile(ListItem*&);
+void InsertListData(ListItem*&);
