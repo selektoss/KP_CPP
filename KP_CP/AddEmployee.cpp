@@ -1,18 +1,18 @@
 #include "__AddEmployee__.hpp"
 
-void AddInfoProfile(ListPerson*& pointTemp)
+void AddInfoProfile(ListItem*& pointTemp)
 {
 
 };
 
-void InsertListData(ListPerson*& pointBeginList)
+void InsertListData(ListItem*& pointBeginList)
 {
 
-	ListPerson* pointTemp(nullptr);
+	ListItem* pointTemp(nullptr);
 
 	char ChoiceYesOrNo = NULL;
 	//do {
-		pointTemp = new ListPerson;
+		pointTemp = new ListItem;
 		AddInfoProfile(*&pointTemp);
 		pointTemp->next = pointBeginList;
 		pointBeginList = pointTemp;
