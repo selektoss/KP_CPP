@@ -43,7 +43,8 @@ void UpdateMenu(const ModelOBJ* form, const int& chois)
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | BG | BB | BR);
 			SetCurPos(*XYtemp, (*(XYtemp + 1)) + iter);
 			cout << string(form->MenuWeight, '\x20');
-			SetCurPos(((form->coordXY.X - (form->border + (form->MenuWeight >> 1))) - ((*(form->ArrLenTitleMenu + iter)) >> 1)), *(XYtemp + 1) + iter);
+			SetCurPos(((form->coordXY.X - (form->border + (form->MenuWeight >> 1))) - ((*(form->ArrLenTitleMenu + iter)) >> 1)), 
+				*(XYtemp + 1) + iter);
 			cout << form->Menu[iter].nameButton;
 			uint16_t lenghtStrHelpTxt = static_cast<uint16_t>(form->Menu[iter].txtHelp.length());
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FB | FG | FR | BBLACK);
