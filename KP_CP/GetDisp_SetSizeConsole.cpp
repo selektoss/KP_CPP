@@ -8,10 +8,13 @@ void GetDisplayInfo(const HWND& consoleWindow)
 		MONITORINFO infoDisplay{ sizeof(infoDisplay) };
 		if (::GetMonitorInfo(objmonitor, &infoDisplay))
 		{
-			uint16_t x = static_cast<uint16_t>(((infoDisplay.rcWork.left + infoDisplay.rcWork.right) >> 1) - (infoDisplay.rcWork.right >> 1));
-			uint16_t y = static_cast<uint16_t>(((infoDisplay.rcWork.top + infoDisplay.rcWork.bottom) >> 1) - (infoDisplay.rcWork.bottom >> 1));
+			uint16_t x = static_cast<uint16_t>(((infoDisplay.rcWork.left + infoDisplay.rcWork.right) >> 1) - 
+				(infoDisplay.rcWork.right >> 1));
+			uint16_t y = static_cast<uint16_t>(((infoDisplay.rcWork.top + infoDisplay.rcWork.bottom) >> 1) - 
+				(infoDisplay.rcWork.bottom >> 1));
 
-			SetWindowPos(consoleWindow, nullptr, x, y, infoDisplay.rcWork.right, infoDisplay.rcWork.bottom, SWP_NOZORDER | SWP_NOOWNERZORDER);
+			SetWindowPos(consoleWindow, nullptr, x, y, infoDisplay.rcWork.right, infoDisplay.rcWork.bottom, 
+				SWP_NOZORDER | SWP_NOOWNERZORDER);
 		}
 	}
 };
