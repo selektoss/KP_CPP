@@ -48,10 +48,11 @@ void UpdateMenu(const ModelOBJ* form, const int& chois)
 			uint16_t lenghtStrHelpTxt = static_cast<uint16_t>(form->Menu[iter].txtHelp.length());
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FB | FG | FR | BBLACK);
 
-			for (uint16_t iterV(0), nextPosition(0); iterV < form->lineCountTextHelp - 1; ++iterV, nextPosition += (form->MenuWeight - 2))
+			for (uint16_t iterV(0), nextPosition(0); iterV < form->lineCountTextHelp - 1; ++iterV, 
+				nextPosition += (form->MenuWeight - 2))
 			{
-
-				SetCurPos((*XYtemp) + 1, (form->coordXY.Y - ((form->border << 1) + form->sizeMenu + (form->lineCountTextHelp - 1) - iterV)));
+				SetCurPos((*XYtemp) + 1, 
+					(form->coordXY.Y - ((form->border << 1) + form->sizeMenu + (form->lineCountTextHelp - 1) - iterV)));
 				cout << string((form->MenuWeight - 2), '\x20');
 				if (nextPosition < lenghtStrHelpTxt)
 				{
