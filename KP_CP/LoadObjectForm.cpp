@@ -56,7 +56,8 @@ void UpdateMenu(const ModelOBJ* form, const int& chois)
 				cout << string((form->MenuWeight - 2), '\x20');
 				if (nextPosition < lenghtStrHelpTxt)
 				{
-					SetCurPos(form->coordXY.X - (form->border + (form->MenuWeight - 1)), (form->coordXY.Y - ((form->border << 1) + form->sizeMenu + (form->lineCountTextHelp - 1) - iterV)));
+					SetCurPos(form->coordXY.X - (form->border + (form->MenuWeight - 1)), 
+						(form->coordXY.Y - ((form->border << 1) + form->sizeMenu + (form->lineCountTextHelp - 1) - iterV)));
 					cout << form->Menu[iter].txtHelp.substr(nextPosition, (form->MenuWeight - 2));
 				}
 			}
