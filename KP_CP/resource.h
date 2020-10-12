@@ -1,7 +1,4 @@
-//{{NO_DEPENDENCIES}}
-// Включаемый файл, созданный в Microsoft Visual C++.
-// Используется KP_CP.rc
-//
+
 #define INITXTFILE                      101
 
 // Next default values for new objects
