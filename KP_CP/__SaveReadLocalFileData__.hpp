@@ -1,4 +1,6 @@
 #pragma once
 #include "PersonData.hpp"
+#include "__AddEmployee__.hpp"
 
-ListItem* CheckLocalDataRead(ListItem* pointList);
+void LocalDataRead_AllocationMemoryList(List*&, char*&);
+void SaveDataListLocalDB(List*, char*&);

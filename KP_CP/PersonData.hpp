@@ -1,21 +1,47 @@
 #pragma once
 #include <cstdint>
+
 typedef struct PersonData
 {
 	uint16_t idPerson;
-	char SNM[31], specialty[11], DOB[10];
-	bool gender; float salary;
+	wchar_t SNM[31], specialty[11], DOB[11];
+	int gender; uint32_t salary;
 
 	struct WorkPlaceData
 	{
+		struct exper
+		{
+			uint16_t experYear, experMonth;
+		};
+
 		uint16_t idWorkshop, idDepartment, category;
-		uint16_t experYear, experMonth;
+		exper expervalue;
 	};
+
 	WorkPlaceData infoWork;
+	
+
 }Employee;
 
 typedef struct ListPerson
 {
 	Employee EmployeeInfo;
 	ListPerson* next;
+	ListPerson* prev;
+
+	ListPerson(): next(nullptr), prev(nullptr)
+	{
+		//next = nullptr; prev = nullptr; 
+		EmployeeInfo.gender = -1; EmployeeInfo.idPerson = 0; 
+		EmployeeInfo.infoWork = { 0,0,0,0,0 };
+	}
 }ListItem;
+
+struct List
+{
+	ListItem* begin; ListItem* end;
+	List()
+	{
+		begin = nullptr; end = nullptr;
+	}
+};

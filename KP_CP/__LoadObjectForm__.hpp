@@ -1,6 +1,7 @@
 #pragma once
 #include "MenuTitle.hpp"
+#include "PersonData.hpp"
 
-ModelOBJ*& LoadObjectForm(void);
+ModelOBJ*& LoadObjectForm(char*&);
 void UpdateMenu(const ModelOBJ*, const int&);
-int ChoisMenu(const ModelOBJ*);
+int ChoisMenu(ModelOBJ*&, List*);

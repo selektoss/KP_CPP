@@ -29,14 +29,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -140,16 +140,25 @@
   <ItemGroup>
     <ClCompile Include="AddEmployee.cpp" />
     <ClCompile Include="CurPos.cpp" />
+    <ClCompile Include="Func.cpp" />
     <ClCompile Include="GetDataResource.cpp" />
     <ClCompile Include="GetDisp_SetSizeConsole.cpp" />
     <ClCompile Include="LoadObjectForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="MenuTitle.cpp" />
     <ClCompile Include="SaveReadLocalFileData.cpp" />
-    <ClCompile Include="StartPoint.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="try_error_cin.cpp" />
+    <ClCompile Include="UpdateContentBox.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="color.hpp" />
+    <ClInclude Include="Func.hpp" />
     <ClInclude Include="MenuTitle.hpp" />
     <ClInclude Include="PersonData.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="try_error_cin.hpp" />
+    <ClInclude Include="UpdateContentBox.hpp" />
     <ClInclude Include="__AddEmployee__.hpp" />
     <ClInclude Include="__CurPosition__.hpp" />
     <ClInclude Include="__GetData__.hpp" />
@@ -160,6 +169,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KP_CP.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataTXT.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
