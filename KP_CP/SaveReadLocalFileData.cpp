@@ -4,7 +4,6 @@
 #include <iostream>
 
 
-
 void LocalDataRead_AllocationMemoryList(List*& listEmployee, char*& key)
 {
 	std::ifstream localData("localDB.dat", std::ios_base::in | std::ios_base::ate | std::ios_base::binary);
@@ -47,6 +46,7 @@ void LocalDataRead_AllocationMemoryList(List*& listEmployee, char*& key)
 
 void SaveDataListLocalDB(List* listEmployee, char*& keyData)
 {
+	static size_t lenKey(strlen(keyData));
 	using namespace std;
 	if (listEmployee->begin)
 	{
@@ -54,7 +54,7 @@ void SaveDataListLocalDB(List* listEmployee, char*& keyData)
 		ofstream fileData("localDB.dat", ios_base::out | ios_base::binary);
 		if (fileData.is_open())
 		{
-			fileData.seekp(0); fileData.write(keyData, strlen(keyData));
+			fileData.seekp(0); fileData.write(keyData, lenKey);
 			while (tmpBegin) {
 				fileData.write((char*)&tmpBegin->EmployeeInfo, sizeof(Employee));
 				tmpBegin = tmpBegin->next;
