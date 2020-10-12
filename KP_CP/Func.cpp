@@ -382,7 +382,7 @@ void ChoisSortTable(ModelOBJ* Form, List* listEmployee)
 
 void CaseMenu(ModelOBJ* Form, List*& listEmployee, int& chois, char*& keyData)
 {
-	while ((chois = ChoisMenu(Form, listEmployee)) < (Form->sizeMenu - 1))
+	while ((chois = ChoisMenu(Form, listEmployee)) < (7))
 	{
 		switch (chois)
 		{
