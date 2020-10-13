@@ -23,7 +23,7 @@ bool RegxCheck(wchar_t* line, const wchar_t* regular, const uint16_t& tmpX, uint
 				wcin.getline(line, 31); if (wcin.tellg() < 0) return 0;
 				return  regex_match(line, basic_regex<wchar_t>{ regular });
 			}
-			else return 1;
+			else if ((GetAsyncKeyState(VK_DOWN)) != 0) return 1;
 		}
 	}
 	else
@@ -36,12 +36,7 @@ bool RegxCheck(wchar_t* line, const wchar_t* regular, const uint16_t& tmpX, uint
 
 void fixErrorDrawing(const uint16_t& weightContent, const uint16_t& x, const uint16_t& y)
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FR | BG | BB | BR);
-	SetCurPos(x, y); std::cout << std::string((weightContent + 5) - (x), ' ');
-	SetCurPos(x, y); std::wcout << L"*ÎØÈÁÊÀ ÔÎÐÌÀÒÀ ÂÂÎÄÀ ÄÀÍÍÛÕ"; Sleep(2500);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BBLACK | BG | BB | BR);
-	SetCurPos(x, y); std::cout << std::string((weightContent + 5) - (x), ' ');
-	SetCurPos(x, y);
+	SetCurPos(x, y); std::cout << std::string((weightContent + 4) - (x), ' '); SetCurPos(x, y);
 };
 
 void jumpPosCurInfoAdd(const uint16_t& x, const uint16_t& y, const uint16_t& weightContent)

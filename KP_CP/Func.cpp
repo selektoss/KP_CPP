@@ -434,7 +434,9 @@ void CaseMenu(ModelOBJ* Form, List*& listEmployee, int& chois, char*& keyData)
 
 void ShowInfoFooter(const ModelOBJ* form, const wchar_t* info, bool value)
 {
+	SetCurPos(form->border, form->coordXY.Y - (form->border >> 1)); std::cout << std::string(form->weightContent, ' ');
 	SetCurPos((form->border + (form->weightContent >> 1)) - static_cast<uint16_t>((wcslen(info) >> 1)), static_cast<uint16_t>(form->coordXY.Y - (form->border >> 1)));
+	
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), form->consoleATR); std::wcout << info;
 	if (value)
 	{
@@ -597,7 +599,7 @@ void DeleteEmploye(ListItem*& employee, List* list)
 	if (employee)
 	{
 		const wchar_t* info = L"БУДЕТ ПРОИЗВЕДЕНО УДАЛЕНИЕ ВЫБРАННОГО СОТРУДНИКА! ВЫ УВЕРЕНЫ? "; const uint16_t size(2);
-		bool result(true); uint16_t x(5), y(37); int chois(0); char choisV[size][11] = { " УВЕРЕН! ", " ОТМЕНА " };
+		bool result(true); uint16_t x(5), y(40); int chois(0); char choisV[size][11] = { " УВЕРЕН! ", " ОТМЕНА " };
 		while (result)
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); x = 5;
@@ -720,59 +722,36 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 							{
 								tempEmployee1 = tempEmployee2;
 								tempEmployee2 = tempEmployee2->prev;
-							}
-					
-						
-
-						
+							}						
 						UpdateBoxContent(tempEmployee1, form, chois);
 						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
 						SetCurPos(form->border + 1, (form->coordXY.Y - (form->heightContent + form->border)) + ((find_ - (form->heightContent * fixpoz)) - 1));
-						CoutList(tempEmployee, form); ShowInfoFooter(form, form->infoAddDelete[2]);
-						
+						CoutList(tempEmployee, form);
 					}
 					else
 					{
 						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
 						SetCurPos(form->border + 1, ((form->coordXY.Y - (form->heightContent + form->border)) + find_) - 1);
-						CoutList(tempEmployee, form); ShowInfoFooter(form, form->infoAddDelete[2]);
+						CoutList(tempEmployee, form); 
+						
 					}
-					
-
-					while (int key = _getch())
-					{
-						if (key > 99) continue;
-
-						if (GetAsyncKeyState(VK_RIGHT) != 0)
-						{
-							break;
-						}
-						else if (GetAsyncKeyState(VK_LEFT) != 0)
-						{
-							break;
-						}
-						else if (GetAsyncKeyState(VK_RETURN) != 0)
-						{
-							ChoisEmployee(tempEmployee, form, tmplist);
-							tempEmployee = list;
-							chois = -1; break;
-						}
-
-					}
+					ChoisEmployee(tempEmployee, form, tmplist);
+					tempEmployee = list;
+					chois = -1;
 					return tempEmployee;
 				}
-
 				tempEmployee = tempEmployee->next;
 			}
-			ShowInfoFooter(form, form->infoAddDelete[1]);
+			ShowInfoFooter(form, form->infoAddDelete[1], true);
 			return list;
 		}
 		else if ((regex_match(tmpLine, std::basic_regex<wchar_t>{ L"([А-Я]){1}[а-я]{1,19}$" })))
 		{
 			uint16_t number(0), number2(0); List* tmpBgin(nullptr);
-			uint16_t count = static_cast<uint16_t>(wcslen(tmpLine));
+			uint16_t count, counttmp = static_cast<uint16_t>(wcslen(tmpLine));
 			while (tempEmployee)
 			{
+				++find_;
 				count = static_cast<uint16_t>(wcslen(tmpLine));
 				while (tmpLine[iter] != 0 && tempEmployee->EmployeeInfo.SNM[iter] != ' ' && count)
 				{
@@ -780,13 +759,13 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 						++iter;
 					--count;
 				}
-				if (iter == wcslen(tmpLine))
+				if (iter == counttmp)
 				{
 					ReClearScreenContentBoxDraw(form);
 					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
 					SetCurPos(form->border + 1, form->coordXY.Y - (form->heightContent + form->border));
 					CoutList(tempEmployee, form);
-
+					
 					while (int key = _getch())
 					{
 						if (key > 99) continue;
@@ -815,6 +794,8 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 			ShowInfoFooter(form, form->infoAddDelete[1]);
 			return list;
 		}
+
+
 		else
 		{
 			ShowInfoFooter(form, form->infoAddDelete[3]);

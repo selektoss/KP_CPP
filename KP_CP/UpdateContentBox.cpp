@@ -6,11 +6,6 @@
 #include "__AddEmployee__.hpp"
 #include "Func.hpp"
 
-
-
-
-
-
 void DrawButtonEmployeeChoise(int& chois, uint16_t& x, uint16_t& y, const char(*choisV)[11] , const uint16_t& sizeCase)
 {
 	ShowCursor(false);
@@ -42,11 +37,13 @@ void DrawButtonEmployeeChoise(int& chois, uint16_t& x, uint16_t& y, const char(*
 
 bool ChoisEmployee(ListItem*& Employee, const ModelOBJ* form, List* list)
 {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	SetCurPos(form->border, form->coordXY.Y - (form->border >> 1)); std::cout << std::string(form->weightContent, ' ');
 	const WCHAR* info = L"ÄÅÉÑÒÂÈÅ ÍÀÄ ÂÛÁÐÀÍÍÛÌ ÑÎÒÐÓÄÍÈÊÎÌ"; const uint16_t size(3);
 	char choisV[size][11] = { " ÓÄÀËÈÒÜ! ", " ÈÇÌÅÍÈÒÜ ", " ÎÒÌÅÍÀ " };
 	uint16_t x = form->border;
 	uint16_t y = (form->coordXY.Y - (form->border >> 1)); SetCurPos(x, y);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); std::wcout << info; 
+	std::wcout << info; 
 	int chois(0); x += (35) + form->border;
 	while (true)
 	{
