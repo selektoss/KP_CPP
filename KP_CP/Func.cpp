@@ -748,7 +748,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 		else if ((regex_match(tmpLine, std::basic_regex<wchar_t>{ L"([А-Я]){1}[а-я]{1,19}$" })))
 		{
 			uint16_t number(0), number2(0); List* tmpBgin(nullptr);
-			uint16_t count, counttmp = static_cast<uint16_t>(wcslen(tmpLine));
+			uint16_t count, counttmp = static_cast<uint16_t>(wcslen(tmpLine)); count = counttmp;
 			while (tempEmployee)
 			{
 				++find_;
