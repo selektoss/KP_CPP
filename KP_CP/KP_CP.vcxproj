@@ -148,7 +148,6 @@
     <ClCompile Include="MenuTitle.cpp" />
     <ClCompile Include="SaveReadLocalFileData.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="try_error_cin.cpp" />
     <ClCompile Include="UpdateContentBox.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +156,6 @@
     <ClInclude Include="MenuTitle.hpp" />
     <ClInclude Include="PersonData.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="try_error_cin.hpp" />
     <ClInclude Include="UpdateContentBox.hpp" />
     <ClInclude Include="__AddEmployee__.hpp" />
     <ClInclude Include="__CurPosition__.hpp" />
