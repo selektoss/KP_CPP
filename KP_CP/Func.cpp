@@ -79,14 +79,14 @@ void SortParamList(List* lisT, const int& chois, const uint16_t countColumnTable
 
 		case 1:
 		{
-			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.SNM[0] - 0,
-				EmployeeItem->next->EmployeeInfo.SNM[0] - 0, countColumnTable, countEmployee));
+			while (SelectParamSort(chois, EmployeeItem, lisT, *(EmployeeItem->EmployeeInfo.SNM) - NULL,
+				*(EmployeeItem->next->EmployeeInfo.SNM) - NULL, countColumnTable, countEmployee));
 		} break;
 
 		case 2:
 		{
-			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.specialty[0] - 0,
-				EmployeeItem->next->EmployeeInfo.specialty[0] - 0, countColumnTable, countEmployee));
+			while (SelectParamSort(chois, EmployeeItem, lisT, *(EmployeeItem->EmployeeInfo.specialty) - NULL,
+				*(EmployeeItem->next->EmployeeInfo.specialty) - NULL, countColumnTable, countEmployee));
 		} break;
 
 		case 3:
