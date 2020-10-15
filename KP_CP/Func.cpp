@@ -32,7 +32,7 @@ void ExchangeList(ListItem* Left, ListItem* Right, List* last)
 
 
 bool SelectParamSort(const int& chois, ListItem*& EmployeeItem, List* lisT,
-						const uint16_t& valueEqual, const uint16_t& valueEqualNext, const uint16_t& countColumnTable, int& countEmployee)
+						const uint32_t& valueEqual, const uint32_t& valueEqualNext, const uint16_t& countColumnTable, int& countEmployee)
 {
 	static uint16_t FlagsSort[10] = { 0 };
 	if (!*(FlagsSort + chois))
@@ -720,21 +720,24 @@ void PrintToTXT(List* listEmployee, const ModelOBJ* form)
 {
 	if (listEmployee->begin)
 	{
+		
 		const std::locale utf8_locale = std::locale(std::locale(), new std::codecvt_utf8<wchar_t>());
-		std::wofstream fileData("REPORT.txt");
+		std::wofstream fileData("REPORT.csv");
 		fileData.imbue(utf8_locale);
 		if (fileData.is_open())
 		{
 			ListItem* tmp = listEmployee->begin;
+			fileData << L"Табельный номер,Инициалы,Специальность,Дата рождения,Пол,Стаж,Розряд,Цех,Участок,Зарплата\n";
 			while (tmp)
 			{	
-					fileData << std::setw(4) << tmp->EmployeeInfo.idPerson << " | " << std::setw(30) << tmp->EmployeeInfo.SNM
-					<< " | " << std::setw(10) << tmp->EmployeeInfo.specialty << " | " << std::setw(10) << tmp->EmployeeInfo.DOB;
-					if (tmp->EmployeeInfo.gender) fileData << " | " << std::setw(7) << L"Женский";
-					else fileData << " | " << std::setw(7) << L"Мужской";
-					fileData << " | " << std::setw(2) << tmp->EmployeeInfo.infoWork.expervalue.experYear
-					<< " | " << std::setw(1) << tmp->EmployeeInfo.infoWork.category << " | " << std::setw(4) << tmp->EmployeeInfo.infoWork.idWorkshop
-					<< " | " << std::setw(4) << tmp->EmployeeInfo.infoWork.idDepartment << " | " << std::setw(6) << tmp->EmployeeInfo.salary << std::endl;
+				fileData << tmp->EmployeeInfo.idPerson << "," << tmp->EmployeeInfo.SNM << "," 
+					<< tmp->EmployeeInfo.specialty << "," << tmp->EmployeeInfo.DOB;
+				if (tmp->EmployeeInfo.gender) fileData << "," << L"Женский";
+				else fileData << "," <<  L"Мужской";
+				fileData << "," << tmp->EmployeeInfo.infoWork.expervalue.experYear << "," 
+					<< tmp->EmployeeInfo.infoWork.category << ","<< tmp->EmployeeInfo.infoWork.idWorkshop << "," 
+					<< tmp->EmployeeInfo.infoWork.idDepartment << "," << tmp->EmployeeInfo.salary << std::endl;
+					
 				tmp = tmp->next;
 			}
 			ShowInfoFooter(form, form->infoAddDelete[4]);
