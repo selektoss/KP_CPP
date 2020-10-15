@@ -5,12 +5,12 @@
 
 int main(void)
 {	
-	int chois(0); char* keyData(nullptr); ModelOBJ* objForm(LoadObjectForm(keyData)); List* listEmployee(new List);
+	int chois(0); char* keyData(nullptr); ModelOBJ* objForm(LoadObjectForm(keyData)); List* lisT(new List);
 
-	LocalDataRead_AllocationMemoryList(listEmployee, keyData);
-	UpdateBoxContent(listEmployee->begin, objForm, chois);
-	ShowInfoParamEmployee(listEmployee->begin, objForm);
-	CaseMenu(objForm, listEmployee, chois, keyData);
+	LocalDataRead_AllocationMemoryList(lisT, keyData);
+	UpdateBoxContent(lisT->begin, objForm, chois);
+	ShowInfoParamEmployee(lisT->begin, objForm);
+	CaseMenu(objForm, lisT, chois, keyData);
 
 	return 0;
 };

@@ -730,13 +730,13 @@ void PrintToTXT(List* listEmployee, const ModelOBJ* form)
 			fileData << L"Табельный номер,Инициалы,Специальность,Дата рождения,Пол,Стаж,Розряд,Цех,Участок,Зарплата\n";
 			while (tmp)
 			{	
-				fileData << tmp->EmployeeInfo.idPerson << "," << tmp->EmployeeInfo.SNM << "," 
-					<< tmp->EmployeeInfo.specialty << "," << tmp->EmployeeInfo.DOB;
-				if (tmp->EmployeeInfo.gender) fileData << "," << L"Женский";
-				else fileData << "," <<  L"Мужской";
-				fileData << "," << tmp->EmployeeInfo.infoWork.expervalue.experYear << "," 
-					<< tmp->EmployeeInfo.infoWork.category << ","<< tmp->EmployeeInfo.infoWork.idWorkshop << "," 
-					<< tmp->EmployeeInfo.infoWork.idDepartment << "," << tmp->EmployeeInfo.salary << std::endl;
+				fileData << tmp->EmployeeInfo.idPerson << "\t" << tmp->EmployeeInfo.SNM << "\t" 
+					<< tmp->EmployeeInfo.specialty << "\t" << tmp->EmployeeInfo.DOB;
+				if (tmp->EmployeeInfo.gender) fileData << "\t" << L"Женский";
+				else fileData << "\t" <<  L"Мужской";
+				fileData << "\t" << tmp->EmployeeInfo.infoWork.expervalue.experYear << "\t" 
+					<< tmp->EmployeeInfo.infoWork.category << "\t"<< tmp->EmployeeInfo.infoWork.idWorkshop << "\t" 
+					<< tmp->EmployeeInfo.infoWork.idDepartment << "\t" << tmp->EmployeeInfo.salary << std::endl;
 					
 				tmp = tmp->next;
 			}

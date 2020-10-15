@@ -166,6 +166,7 @@ void UpdateBoxContent(ListItem* Employee, const ModelOBJ* form, int& chois, bool
 				ListItem* tmp1 = Employee;
 				chois = 0;
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
+
 				SetCurPos(form->border + 1, form->coordXY.Y + (chois)-(form->heightContent + form->border));
 				CoutList(Employee, form);
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BBLACK | BG | BB | BR);
