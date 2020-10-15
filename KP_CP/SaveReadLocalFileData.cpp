@@ -7,12 +7,12 @@
 void LocalDataRead_AllocationMemoryList(List*& listEmployee, char*& key)
 {
 	std::ifstream localData("localDB.dat", std::ios_base::in | std::ios_base::ate | std::ios_base::binary);
-	ListItem* takeData = nullptr; std::streampos fileSize(localData.tellg()); 
+	ListItem* takeData = nullptr;
 	
 	size_t sizeFile(localData.tellg()), lenKey(strlen(key));
-	if ((fileSize > sizeof(Employee)) && (((sizeFile - lenKey) % sizeof(Employee)) == 0))
+	if ((sizeFile > sizeof(Employee)) && (((sizeFile - lenKey) % sizeof(Employee)) == 0))
 	{
-		uint16_t check = static_cast<uint16_t>(localData.tellg() / sizeof(Employee));
+		
 		if (localData.is_open())
 		{
 			char* keyequal(new char[lenKey + 1]);
@@ -21,6 +21,7 @@ void LocalDataRead_AllocationMemoryList(List*& listEmployee, char*& key)
 
 			if (!strncmp(keyequal, key, (lenKey)))
 			{
+				uint16_t check = listEmployee->countItemList = static_cast<uint16_t>((sizeFile - lenKey) / sizeof(Employee));
 				takeData = new ListItem;
 				while (localData.read((char*)&(takeData->EmployeeInfo), sizeof(Employee)))
 				{
@@ -38,10 +39,12 @@ void LocalDataRead_AllocationMemoryList(List*& listEmployee, char*& key)
 					if (--check)
 						takeData = new ListItem;
 				}
+				
 			}
 			localData.close(); delete[] keyequal;
 		}
 	}
+	
  };
 
 void SaveDataListLocalDB(List* listEmployee, char*& keyData)

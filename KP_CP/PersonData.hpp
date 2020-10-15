@@ -31,17 +31,14 @@ typedef struct ListPerson
 
 	ListPerson(): next(nullptr), prev(nullptr)
 	{
-		//next = nullptr; prev = nullptr; 
+		
 		EmployeeInfo.gender = -1; EmployeeInfo.idPerson = 0; 
-		EmployeeInfo.infoWork = { 0,0,0,0,0 };
+		EmployeeInfo.infoWork = { 0,0,0,0,0};
 	}
 }ListItem;
 
 struct List
 {
-	ListItem* begin; ListItem* end;
-	List()
-	{
-		begin = nullptr; end = nullptr;
-	}
+	ListItem* begin; ListItem* end; uint16_t countItemList;
+	List() : begin(nullptr), end(nullptr), countItemList(0){}
 };

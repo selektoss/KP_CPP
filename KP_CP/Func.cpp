@@ -6,7 +6,7 @@
 #include "__SaveReadLocalFileData__.hpp"
 #include <regex>
 
-void exchange(ListItem* Left, ListItem* Right, List* last) 
+void ExchangeList(ListItem* Left, ListItem* Right, List* last) 
 {
 	if (Right == last->end)
 		last->end = Left;
@@ -30,282 +30,112 @@ void exchange(ListItem* Left, ListItem* Right, List* last)
 	}
 };
 
-void sortStep(List* head) {
 
-	for (ListItem* l = head->begin; l && l->next;) {
-
-		if (l->EmployeeInfo.infoWork.category < l->next->EmployeeInfo.infoWork.category)
-			exchange(l, l->next, head);
-		else l = l->next;
-	}
-};
-
-void AllSort(List* head, int& chois)
+bool SelectParamSort(const int& chois, ListItem*& EmployeeItem, List* lisT,
+						const uint16_t& valueEqual, const uint16_t& valueEqualNext, const uint16_t& countColumnTable, int& countEmployee)
 {
-	if (head->begin)
+	static uint16_t FlagsSort[10] = { 0 };
+	if (!*(FlagsSort + chois))
 	{
-		int i(0); static uint16_t FlagsSort[10]{ 0 };
-		for (ListItem* tmpPrev = head->begin; tmpPrev; tmpPrev = tmpPrev->next) i++;
-				switch (chois)
-				{
-				case 0:
-				{
-					if (!*(FlagsSort + chois))
-					{
+		while (countEmployee >= 0)
+		{
+			
+			while (EmployeeItem && EmployeeItem->next)
+			{
+				if (valueEqual > valueEqualNext)
+					ExchangeList(EmployeeItem, EmployeeItem->next, lisT);
+				else EmployeeItem = EmployeeItem->next;
+				if (!EmployeeItem->next) { EmployeeItem = lisT->begin; --countEmployee; }
+				return 1;
+			}
+			--countEmployee; return 1;
+		}
+		for (uint16_t iter(0); iter < countColumnTable; ++iter)
+			*(FlagsSort + iter) = 0;
 
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if (l->EmployeeInfo.idPerson > l->next->EmployeeInfo.idPerson)
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for(uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois)= 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-
-				} break;
-				case 1:
-				{
-					
-					if (!*(FlagsSort + chois))
-					{
-
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if ((l->EmployeeInfo.SNM[0] - 0) > (l->next->EmployeeInfo.SNM[0] - 0))
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-				} break;
-				case 2:
-				{
-					
-					if (!*(FlagsSort + chois))
-					{
-
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if ((l->EmployeeInfo.specialty[0] - 0) > (l->next->EmployeeInfo.specialty[0] - 0))
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-				} break;
-				case 3:
-				{
-					
-					
-					if (!*(FlagsSort + chois))
-					{
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-								if (_wtoi(&l->EmployeeInfo.DOB[6]) > _wtoi(&l->next->EmployeeInfo.DOB[6]))
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-
-				} break;
-				case 4:
-				{
-					
-					if (!*(FlagsSort + chois))
-					{
-
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if (l->EmployeeInfo.gender > l->next->EmployeeInfo.gender)
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-
-				} break;
-				case 5:
-				{
-					
-					if (!*(FlagsSort + chois))
-					{
-
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if (l->EmployeeInfo.infoWork.expervalue.experYear > l->next->EmployeeInfo.infoWork.expervalue.experYear)
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-
-				} break;
-				case 6:
-				{
-					
-					if (!*(FlagsSort + chois))
-					{
-
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if (l->EmployeeInfo.infoWork.category > l->next->EmployeeInfo.infoWork.category)
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-
-				} break;
-				case 7:
-				{
-					
-					if (!*(FlagsSort + chois))
-					{
-
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if (l->EmployeeInfo.infoWork.idWorkshop > l->next->EmployeeInfo.infoWork.idWorkshop)
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-				} break;
-				case 8:
-				{
-					
-					if (!*(FlagsSort + chois))
-					{
-
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if (l->EmployeeInfo.infoWork.idDepartment > l->next->EmployeeInfo.infoWork.idDepartment)
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-				} break;
-				case 9:
-				{
-					
-					if (!*(FlagsSort + chois))
-					{
-
-						for (; i >= 0; i--)
-						{
-							for (ListItem* l = head->begin; l && l->next;)
-							{
-
-								if (l->EmployeeInfo.salary > l->next->EmployeeInfo.salary)
-								{
-
-									exchange(l, l->next, head);
-								}
-								else l = l->next;
-							}
-						}
-						for (uint16_t iter(0); iter < 10; ++iter) *(FlagsSort + iter) = 0; *(FlagsSort + chois) = 1;
-					}
-					else {
-						Reverse(head); *(FlagsSort + chois) = 0;
-					}
-				} break;
-				}
+		*(FlagsSort + chois) = 1;
+		return 0;
+	}
+	else
+	{
+		Reverse(lisT);
+		return 0;
 	}
 };
 
-void SelectChoiseColumn(int& chois, ModelOBJ* Form)
+void SortParamList(List* lisT, const int& chois, const uint16_t countColumnTable)
+{
+	if (lisT->begin && lisT->begin->next)
+	{
+		ListItem* EmployeeItem = lisT->begin; int countEmployee(lisT->countItemList);
+		
+		switch (chois)
+		{
+		case 0:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.idPerson,
+				EmployeeItem->next->EmployeeInfo.idPerson, countColumnTable, countEmployee));
+		} break;
+
+		case 1:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.SNM[0] - 0,
+				EmployeeItem->next->EmployeeInfo.SNM[0] - 0, countColumnTable, countEmployee));
+		} break;
+
+		case 2:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.specialty[0] - 0,
+				EmployeeItem->next->EmployeeInfo.specialty[0] - 0, countColumnTable, countEmployee));
+		} break;
+
+		case 3:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, _wtoi(&EmployeeItem->EmployeeInfo.DOB[6]),
+				_wtoi(&EmployeeItem->next->EmployeeInfo.DOB[6]), countColumnTable, countEmployee));
+		} break;
+
+		case 4:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.gender,
+				EmployeeItem->next->EmployeeInfo.gender, countColumnTable, countEmployee));
+		} break;
+
+		case 5:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.infoWork.expervalue.experYear,
+				EmployeeItem->next->EmployeeInfo.infoWork.expervalue.experYear, countColumnTable, countEmployee));
+		} break;
+
+		case 6:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.infoWork.category,
+				EmployeeItem->next->EmployeeInfo.infoWork.category, countColumnTable, countEmployee));
+		} break;
+
+		case 7:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.infoWork.idWorkshop,
+				EmployeeItem->next->EmployeeInfo.infoWork.idWorkshop, countColumnTable, countEmployee));
+		} break;
+
+		case 8:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.infoWork.idDepartment,
+				EmployeeItem->next->EmployeeInfo.infoWork.idDepartment, countColumnTable, countEmployee));
+		} break;
+
+		case 9:
+		{
+			while (SelectParamSort(chois, EmployeeItem, lisT, EmployeeItem->EmployeeInfo.salary,
+				EmployeeItem->next->EmployeeInfo.salary, countColumnTable, countEmployee));
+
+		} break;
+	    }
+	}
+};
+
+void SelectChoiseColumn(const int& chois, ModelOBJ* Form)
 {
 	uint16_t Summ(0);
 		for (uint16_t iter(0); iter < Form->countColumnTitle; ++iter)
@@ -341,14 +171,14 @@ void ChoisSortTable(ModelOBJ* Form, List* listEmployee)
 
 			if (GetAsyncKeyState(VK_LEFT) != 0)
 			{
-				--chois; if (chois < 0) chois = 9;
+				--chois; if (chois < 0) chois = Form->countColumnTitle - 1;
 				SelectChoiseColumn(chois, Form);
 
 				break;
 			}
 			else if (GetAsyncKeyState(VK_RIGHT) != 0)
 			{
-				++chois; if (chois == 10) chois = 0;
+				++chois; if (chois == Form->countColumnTitle) chois = 0;
 				SelectChoiseColumn(chois, Form);
 				break;
 			}
@@ -367,9 +197,9 @@ void ChoisSortTable(ModelOBJ* Form, List* listEmployee)
 
 			else if (GetAsyncKeyState(VK_RETURN) != 0)
 			{
-				if (chois < 10 && chois >= 0)
+				if (chois < Form->countColumnTitle && chois >= 0)
 				{
-					AllSort(listEmployee, chois);
+					SortParamList(listEmployee, chois, Form->countColumnTitle);
 					UpdateBoxContent(listEmployee->begin, Form, chois);
 					break;
 				}
@@ -655,7 +485,7 @@ void DeleteEmploye(ListItem*& employee, List* list)
 						}
 						x = 5; chois = 100;
 						DrawButtonEmployeeChoise(chois, x, y, choisV, size);
-						result = false;
+						result = false; --list->countItemList;
 						break;
 					}
 					else if (chois == 1)
@@ -710,7 +540,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 			size_t number(_wtoi(tmpLine)); 
 			while (tempEmployee)
 			{
-				++find_;
+				if (number > tmplist->end->EmployeeInfo.idPerson) break; ++find_;
 				if (tempEmployee->EmployeeInfo.idPerson == number)
 				{
 					if (find_ > form->heightContent)
