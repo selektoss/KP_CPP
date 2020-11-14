@@ -39,6 +39,6 @@ typedef struct ListPerson
 
 struct List
 {
-	ListItem* begin; ListItem* end; uint16_t countItemList;
-	List() : begin(nullptr), end(nullptr), countItemList(0){}
+	ListItem* begin; ListItem* end; uint16_t countItemList; bool flag;
+	List() : begin(nullptr), end(nullptr), countItemList(0), flag(0){}
 };

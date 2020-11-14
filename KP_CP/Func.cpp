@@ -200,7 +200,7 @@ void ChoisSortTable(ModelOBJ* Form, List* listEmployee)
 				if (chois < Form->countColumnTitle && chois >= 0)
 				{
 					SortParamList(listEmployee, chois, Form->countColumnTitle);
-					UpdateBoxContent(listEmployee->begin, Form, chois);
+					UpdateBoxContent(listEmployee->begin, Form, chois, listEmployee);
 					break;
 				}
 			}
@@ -231,7 +231,7 @@ void CaseMenu(ModelOBJ* Form, List*& listEmployee, int& chois, char*& keyData)
 		case 3:
 		{
 			SearchEmployee(listEmployee->begin, Form, listEmployee);
-			UpdateBoxContent(listEmployee->begin, Form, chois);
+			UpdateBoxContent(listEmployee->begin, Form, chois, listEmployee);
 
 		} break;
 		case 4:
@@ -242,7 +242,7 @@ void CaseMenu(ModelOBJ* Form, List*& listEmployee, int& chois, char*& keyData)
 		case 5:
 		{
 			DeleteEmployee(listEmployee, chois);
-			UpdateBoxContent(listEmployee->begin, Form, chois);
+			UpdateBoxContent(listEmployee->begin, Form, chois, listEmployee);
 			ShowInfoParamEmployee(listEmployee->begin, Form);
 		} break;
 		case 6:
@@ -423,13 +423,13 @@ void ShowInfoParamEmployee(ListItem* begEmployee, const ModelOBJ* form, bool val
 	ShowResult(Arr, form, value);
 };
 
-void DeleteEmploye(ListItem*& employee, List* list)
+void DeleteEmploye(ListItem*& employee, List* list, const ModelOBJ* form, bool& flag)
 {
 	
 	if (employee)
 	{
 		const wchar_t* info = L"БУДЕТ ПРОИЗВЕДЕНО УДАЛЕНИЕ ВЫБРАННОГО СОТРУДНИКА! ВЫ УВЕРЕНЫ? "; const uint16_t size(2);
-		bool result(true); uint16_t x(5), y(40); int chois(0); char choisV[size][11] = { " УВЕРЕН! ", " ОТМЕНА " };
+		bool result(true); uint16_t x(5), y(form->coordXY.Y - 2); int chois(0); char choisV[size][11] = { " УВЕРЕН! ", " ОТМЕНА " };
 		while (result)
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); x = 5;
@@ -471,9 +471,11 @@ void DeleteEmploye(ListItem*& employee, List* list)
 							else
 							{
 								tmp->prev->next = nullptr;
-								list->end = employee->prev;
+								list->end = tmp->prev;
+								employee = tmp->prev;
+								flag = 1;
 							}
-							delete tmp;
+							delete tmp; 
 						}
 
 						else if (tmp->next)
@@ -499,6 +501,7 @@ void DeleteEmploye(ListItem*& employee, List* list)
 			}
 		}
 	}
+	
 };
 
 void EditEmploye(ListItem*& employee, const ModelOBJ* form)
@@ -531,7 +534,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 {
 	if (list)
 	{
-		SetConsoleCP(1251); SetConsoleOutputCP(1251);
+		SetConsoleCP(1251); SetConsoleOutputCP(1251); bool flag(0);
 		uint16_t iter(0); ListItem* tempEmployee = list; wchar_t tmpLine[21]{ 0 };
 		ShowInfoFooter(form, form->infoAddDelete[2], 0); int chois(0);
 		std::wcin.getline(tmpLine, 20); uint16_t find_(0); ListItem* tempEmployee1(nullptr);
@@ -553,7 +556,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 								tempEmployee1 = tempEmployee2;
 								tempEmployee2 = tempEmployee2->prev;
 							}						
-						UpdateBoxContent(tempEmployee1, form, chois);
+						UpdateBoxContent(tempEmployee1, form, chois, tmplist);
 						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
 						SetCurPos(form->border + 1, (form->coordXY.Y - (form->heightContent + form->border)) + ((find_ - (form->heightContent * fixpoz)) - 1));
 						CoutList(tempEmployee, form);
@@ -565,7 +568,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 						CoutList(tempEmployee, form); 
 						
 					}
-					ChoisEmployee(tempEmployee, form, tmplist);
+					ChoisEmployee(tempEmployee, form, tmplist, flag);
 					tempEmployee = list;
 					chois = -1;
 					return tempEmployee;
@@ -610,7 +613,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 						}
 						else if (GetAsyncKeyState(VK_RETURN) != 0)
 						{
-							ChoisEmployee(tempEmployee, form, tmplist);
+							ChoisEmployee(tempEmployee, form, tmplist, flag);
 							tempEmployee = list;
 							chois = -1; break;
 						}
@@ -630,7 +633,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 		{
 			ShowInfoFooter(form, form->infoAddDelete[3]);
 			std::wcin.clear();
-			//std::wcin.ignore(INT_MAX, '\n');
+			
 		}
 	}
 };

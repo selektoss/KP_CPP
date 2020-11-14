@@ -1,6 +1,5 @@
 #include "__AddEmployee__.hpp"
 #include "__CurPosition__.hpp"
-#include "try_error_cin.hpp" 
 #include "color.hpp"
 #include <regex>
 #include "UpdateContentBox.hpp"
@@ -390,5 +389,5 @@ void InsertListData(List*& listEmployee, const ModelOBJ* form)
 		}
 	int t = 0; ShowCursor(false);
 	ShowInfoParamEmployee(listEmployee->begin, form);
-	UpdateBoxContent(listEmployee->begin, form, t, 0);
+	UpdateBoxContent(listEmployee->begin, form, t, listEmployee, 0);
 };

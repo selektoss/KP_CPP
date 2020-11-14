@@ -12,7 +12,7 @@ void ShowInfoParamEmployee(ListItem*, const ModelOBJ*, bool value = true);
 void EditEmploye(ListItem*&, const ModelOBJ*);
 
 //Removing an item from the list.
-void DeleteEmploye(ListItem*&, List* list);
+void DeleteEmploye(ListItem*&, List* list, const ModelOBJ* form, bool& flag);
 
 //Flip list items.
 void Reverse(List*);

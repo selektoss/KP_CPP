@@ -35,9 +35,9 @@ void DrawButtonEmployeeChoise(int& chois, uint16_t& x, uint16_t& y, const char(*
 
 };
 
-bool ChoisEmployee(ListItem*& Employee, const ModelOBJ* form, List* list)
+bool ChoisEmployee(ListItem*& Employee, const ModelOBJ* form, List* list, bool& flag)
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); flag = 0;
 	SetCurPos(form->border, form->coordXY.Y - (form->border >> 1)); std::cout << std::string(form->weightContent, ' ');
 	const WCHAR* info = L"ÄÅÉÑÒÂÈÅ ÍÀÄ ÂÛÁÐÀÍÍÛÌ ÑÎÒÐÓÄÍÈÊÎÌ"; const uint16_t size(3);
 	char choisV[size][11] = { " ÓÄÀËÈÒÜ! ", " ÈÇÌÅÍÈÒÜ ", " ÎÒÌÅÍÀ " };
@@ -71,7 +71,7 @@ bool ChoisEmployee(ListItem*& Employee, const ModelOBJ* form, List* list)
 				x = form->border;
 				if (chois == 0)
 				{
-					DeleteEmploye(Employee, list); chois = form->coordXY.X; 
+					DeleteEmploye(Employee, list, form, flag); chois = form->coordXY.X; list->flag = 1;
 					ShowInfoParamEmployee(list->begin, form);
 					DrawButtonEmployeeChoise(chois, x, y, choisV, size);
 					return true;
@@ -117,15 +117,16 @@ void CoutList(const ListItem* Employee, const ModelOBJ* form)
 	
 };
 
-void UpdateBoxContent(ListItem* Employee, const ModelOBJ* form, int& chois, bool value)
+void UpdateBoxContent(ListItem* Employee, const ModelOBJ* form, int& chois, List* listT, bool value, bool flag)
 {
 	uint16_t iter(0); ShowCursor(false);
 	if (Employee)
 	{
 		if (value)
 		{
+			ListItem* tmp(nullptr);
 			if(chois == form->heightContent) ReClearScreenContentBoxDraw(form);
-			if ((chois == form->heightContent || chois == 0) && Employee->prev)
+			if ((chois == form->heightContent) && Employee->prev)
 			{
 				ListItem* tmp1 = Employee;
 				chois = 0;
@@ -146,21 +147,54 @@ void UpdateBoxContent(ListItem* Employee, const ModelOBJ* form, int& chois, bool
 
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
 				SetCurPos(form->border + 1, form->coordXY.Y + (chois)-(form->heightContent + form->border));
+				
 				CoutList(Employee, form);
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BBLACK | BG | BB | BR);
-				if (Employee->prev && chois != 0) {
+				if (Employee->prev && chois != 0) 
+				{
 					SetCurPos(form->border + 1, (form->coordXY.Y + (chois)-(form->heightContent + form->border)) - 1);
 					CoutList(Employee->prev, form);
 				}
-				if (Employee->next && chois != form->heightContent - 1)
+
+
+				if (listT->flag) 
 				{
-					SetCurPos(form->border + 1, (form->coordXY.Y + (chois)-(form->heightContent + form->border)) + 1);
-					CoutList(Employee->next, form);
+					if (Employee->next && chois != form->heightContent - 1)
+					{
+						SetCurPos(form->border + 1, (form->coordXY.Y + (chois)-(form->heightContent + form->border)) + 1);
+						tmp = Employee->next; int tnt = chois;
+						while (tmp && tnt != form->heightContent - 1) {
+							SetCurPos(form->border + 1, (++tnt) + form->border + form->headerHeight);
+							CoutList(tmp, form);
+							tmp = tmp->next;
+						}
+						while (tnt++ < form->heightContent - 1)
+						{
+							SetCurPos(form->border + 1, (tnt)+form->border + form->headerHeight);
+							std::cout << std::string(form->weightContent - 2, ' ');
+						}
+						listT->flag = 0;
+					}
+						else if(chois < form->heightContent - 1)
+						{
+							SetCurPos(form->border + 1, (chois +1)+ form->border + form->headerHeight);
+							
+							std::cout << std::string(form->weightContent - 2, ' ');
+						}
+					
 				}
-				
+				else
+				{
+					if (Employee->next && chois != form->heightContent - 1)
+					{
+						SetCurPos(form->border + 1, (form->coordXY.Y + (chois)-(form->heightContent + form->border)) + 1);
+						CoutList(Employee->next, form);
+					}
+				}
 			}
 			else if (chois < 0)
 			{
+
 				while (Employee->prev)
 					Employee = Employee->prev;
 				ListItem* tmp1 = Employee;
@@ -177,6 +211,7 @@ void UpdateBoxContent(ListItem* Employee, const ModelOBJ* form, int& chois, bool
 					CoutList(tmp1, form);
 					++iter;
 				}
+				
 			}	
 		}
 		
@@ -232,14 +267,14 @@ void UpdateBoxContent(ListItem* Employee, const ModelOBJ* form, int& chois, bool
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), form->consoleATR);
 };
 
-bool choisListContent(const ModelOBJ* form, List* employee)
+bool choisListContent(const ModelOBJ* form, List* listT)
 {
-	if (employee->begin)
+	if (listT->begin)
 	{
-		int chois(0); ListItem* tmp = employee->begin;
+		int chois(0); ListItem* tmp = listT->begin; bool flag(0);
 		while (true)
 		{
-			UpdateBoxContent(tmp, form, chois, 1);
+			UpdateBoxContent(tmp, form, chois, listT, 1, listT->flag);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), form->consoleATR);
 			while (int key = _getch())
 			{
@@ -248,19 +283,21 @@ bool choisListContent(const ModelOBJ* form, List* employee)
 				{
 					--chois;
 					if (chois < 0)
-						tmp = employee->begin;
+						tmp = listT->begin;
 					else if (tmp->prev)
 						tmp = tmp->prev;
 					break;
 				}
 				else if (GetAsyncKeyState(VK_DOWN) != 0)
 				{
+					if (chois == 0 && !tmp->next) tmp = listT->begin;
 					if (tmp && tmp->next)
 					{
 						tmp = tmp->next;
 						if (tmp)
 							++chois;
 					}
+					
 					if (chois >= form->heightContent)
 						chois = form->heightContent;
 					break;
@@ -274,10 +311,16 @@ bool choisListContent(const ModelOBJ* form, List* employee)
 
 				else if (GetAsyncKeyState(VK_RETURN) != 0)
 				{
-					ChoisEmployee(tmp, form, employee);
-					if(tmp->prev)
-						tmp = employee->begin;
-					chois = -1; break;
+					if (ChoisEmployee(tmp, form, listT, flag))
+					{
+						if (flag)
+						{
+							--chois;
+						}
+						
+						break;
+					}
+					
 				}
 			}
 		}

@@ -9,7 +9,8 @@ void LocalDataRead_AllocationMemoryList(List*& listEmployee, char*& key)
 	std::ifstream localData("localDB.dat", std::ios_base::in | std::ios_base::ate | std::ios_base::binary);
 	ListItem* takeData = nullptr;
 	
-	size_t sizeFile(localData.tellg()), lenKey(strlen(key));
+	uint64_t sizeFile(localData.tellg());
+	uint16_t lenKey(strlen(key));
 	if ((sizeFile > sizeof(Employee)) && (((sizeFile - lenKey) % sizeof(Employee)) == 0))
 	{
 		
