@@ -6,7 +6,7 @@
 #include "__SaveReadLocalFileData__.hpp"
 #include <regex>
 
-void ExchangeList(ListItem* Left, ListItem* Right, List* last) 
+void ExchangeList(ListItem* Left, ListItem* Right, List* last)
 {
 	if (Right == last->end)
 		last->end = Left;
@@ -32,14 +32,14 @@ void ExchangeList(ListItem* Left, ListItem* Right, List* last)
 
 
 bool SelectParamSort(const int& chois, ListItem*& EmployeeItem, List* lisT,
-						const uint32_t& valueEqual, const uint32_t& valueEqualNext, const uint16_t& countColumnTable, int& countEmployee)
+	const uint32_t& valueEqual, const uint32_t& valueEqualNext, const uint16_t& countColumnTable, int& countEmployee)
 {
 	static uint16_t FlagsSort[10] = { 0 };
 	if (!*(FlagsSort + chois))
 	{
 		while (countEmployee >= 0)
 		{
-			
+
 			while (EmployeeItem && EmployeeItem->next)
 			{
 				if (valueEqual > valueEqualNext)
@@ -68,7 +68,7 @@ void SortParamList(List* lisT, const int& chois, const uint16_t countColumnTable
 	if (lisT->begin && lisT->begin->next)
 	{
 		ListItem* EmployeeItem = lisT->begin; int countEmployee(lisT->countItemList);
-		
+
 		switch (chois)
 		{
 		case 0:
@@ -131,32 +131,32 @@ void SortParamList(List* lisT, const int& chois, const uint16_t countColumnTable
 				EmployeeItem->next->EmployeeInfo.salary, countColumnTable, countEmployee));
 
 		} break;
-	    }
+		}
 	}
 };
 
 void SelectChoiseColumn(const int& chois, ModelOBJ* Form)
 {
 	uint16_t Summ(0);
-		for (uint16_t iter(0); iter < Form->countColumnTitle; ++iter)
+	for (uint16_t iter(0); iter < Form->countColumnTitle; ++iter)
+	{
+		Summ += *(Form->minLenColumnSection + iter);
+
+		if (iter == chois)
 		{
-			Summ += *(Form->minLenColumnSection + iter);
-			
-			if (iter == chois)
-			{
-				SetCurPos(static_cast<uint16_t>((((Form->border + Form->weightContent + 1) - (Form->weightContent - Summ)) -
-					(Form->minLenColumnSection[iter] >> 1)) - ((wcslen(*(Form->nameSection + iter)) + 2) >> 1)), (Form->headerHeight + 3));
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
-				std::wcout << Form->nameSection[iter];
-			}
-			else
-			{
-				SetCurPos(static_cast<uint16_t>((((Form->border + Form->weightContent + 1) - (Form->weightContent - Summ)) -
-					(Form->minLenColumnSection[iter] >> 1)) - ((wcslen(*(Form->nameSection + iter)) + 2) >> 1)), (Form->headerHeight + 3));
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG);
-				std::wcout << Form->nameSection[iter];
-			}
+			SetCurPos(static_cast<uint16_t>((((Form->border + Form->weightContent + 1) - (Form->weightContent - Summ)) -
+				(Form->minLenColumnSection[iter] >> 1)) - ((wcslen(*(Form->nameSection + iter)) + 2) >> 1)), (Form->headerHeight + 3));
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
+			std::wcout << Form->nameSection[iter];
 		}
+		else
+		{
+			SetCurPos(static_cast<uint16_t>((((Form->border + Form->weightContent + 1) - (Form->weightContent - Summ)) -
+				(Form->minLenColumnSection[iter] >> 1)) - ((wcslen(*(Form->nameSection + iter)) + 2) >> 1)), (Form->headerHeight + 3));
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG);
+			std::wcout << Form->nameSection[iter];
+		}
+	}
 };
 
 void ChoisSortTable(ModelOBJ* Form, List* listEmployee)
@@ -184,7 +184,7 @@ void ChoisSortTable(ModelOBJ* Form, List* listEmployee)
 			}
 			else if (GetAsyncKeyState(VK_DOWN) != 0)
 			{
-				
+
 				if (choisListContent(Form, listEmployee))
 					break;
 			}
@@ -207,7 +207,7 @@ void ChoisSortTable(ModelOBJ* Form, List* listEmployee)
 		}
 	}
 	SetCurPos(Form->border, (Form->headerHeight - 2) + Form->border);
-	
+
 };
 
 void CaseMenu(ModelOBJ* Form, List*& listEmployee, int& chois, char*& keyData)
@@ -266,20 +266,20 @@ void ShowInfoFooter(const ModelOBJ* form, const wchar_t* info, bool value)
 {
 	SetCurPos(form->border, form->coordXY.Y - (form->border >> 1)); std::cout << std::string(form->weightContent, ' ');
 	SetCurPos((form->border + (form->weightContent >> 1)) - static_cast<uint16_t>((wcslen(info) >> 1)), static_cast<uint16_t>(form->coordXY.Y - (form->border >> 1)));
-	
+
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), form->consoleATR); std::wcout << info;
 	if (value)
 	{
 		Sleep(3500); SetCurPos(form->border, form->coordXY.Y - (form->border >> 1)); std::cout << std::string(form->weightContent, ' ');
 	}
-	
+
 };
 
 void ShowResult(const uint16_t* Arr, const ModelOBJ* form, bool value)
-{	
+{
 	using namespace std;
-	
-		const wchar_t Ainfo[6][11] = { L"|ДО 6", L"|6 - 11", L"|11 - 16", L"|16 - 21", L"|21 - 25", L"|СВЫШЕ 25" };
+
+	const wchar_t Ainfo[6][11] = { L"|ДО 6", L"|6 - 11", L"|11 - 16", L"|16 - 21", L"|21 - 25", L"|СВЫШЕ 25" };
 	if (value)
 	{
 		uint16_t count(0), iterar(0), iterDelim(2), Xstep(0);
@@ -292,7 +292,7 @@ void ShowResult(const uint16_t* Arr, const ModelOBJ* form, bool value)
 		SetCurPos((form->coordXY.X - ((form->MenuWeight)) + 4), form->headerHeight + 4);
 		wcout << "|";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BBLACK | BG | BB | BR);
-		wcout <<  setw(3) << left << L" 1 " << setw(3) << left << L"| 2 " << "|" << setw(3) << left << L" 3";
+		wcout << setw(3) << left << L" 1 " << setw(3) << left << L"| 2 " << "|" << setw(3) << left << L" 3";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		wcout << "|";
 		SetCurPos(form->coordXY.X - (form->border + form->MenuWeight), form->headerHeight + 5);
@@ -310,7 +310,7 @@ void ShowResult(const uint16_t* Arr, const ModelOBJ* form, bool value)
 		SetCurPos(form->coordXY.X - (form->border + form->MenuWeight), form->headerHeight + 12);
 		for (size_t i = 0; i < form->MenuWeight; i++) wcout << '-';
 	}
-	else 
+	else
 	{
 		const std::locale utf8_locale = std::locale(std::locale(), new std::codecvt_utf8<wchar_t>());
 		std::wofstream fileData("REPORTCOUNT.txt");
@@ -318,15 +318,15 @@ void ShowResult(const uint16_t* Arr, const ModelOBJ* form, bool value)
 		if (fileData.is_open())
 		{
 			for (size_t i = 0; i < form->MenuWeight; i++) fileData << '-'; fileData << "\n"
-			<< setw(10) << left << L"|СТАЖ/ЛЕТ" << setw(12) << left << L"|РАЗРЯД" << "|" << left << L"ОБЩЕЕ" << "|\n"
-			<< setw(3) << left << L"          | 1 " << setw(3) << left << L"| 2 " << "|" << setw(3) << left << L" 3" << "|" << setw(5) << left << L"ВСЕГО" << "|\n";
-			for (size_t i = 0; i < form->MenuWeight; i++) fileData << '-'; 
+				<< setw(10) << left << L"|СТАЖ/ЛЕТ" << setw(12) << left << L"|РАЗРЯД" << "|" << left << L"ОБЩЕЕ" << "|\n"
+				<< setw(3) << left << L"          | 1 " << setw(3) << left << L"| 2 " << "|" << setw(3) << left << L" 3" << "|" << setw(5) << left << L"ВСЕГО" << "|\n";
+			for (size_t i = 0; i < form->MenuWeight; i++) fileData << '-';
 			fileData << "\n"; uint16_t count(0);
 			for (uint16_t iter(0); iter < 6; ++iter, ++count)
 			{
 				fileData << setw(10) << Ainfo[iter]
-				<< "|" << setw(3) << Arr[count] << "|" << setw(3) << Arr[count + 1] << "|" << setw(3) << Arr[count + 2] << "|"
-				<< setw(5) << Arr[count] + Arr[count + 1] + Arr[count + 2] << "|\n";
+					<< "|" << setw(3) << Arr[count] << "|" << setw(3) << Arr[count + 1] << "|" << setw(3) << Arr[count + 2] << "|"
+					<< setw(5) << Arr[count] + Arr[count + 1] + Arr[count + 2] << "|\n";
 				count += 2;
 			}
 			fileData.close();
@@ -340,15 +340,15 @@ void ShowInfoParamEmployee(ListItem* begEmployee, const ModelOBJ* form, bool val
 	uint16_t Arr[18] = { 0 };
 	if (begEmployee)
 	{
-		ListItem* tmpEmployee = begEmployee; 
+		ListItem* tmpEmployee = begEmployee;
 
 		while (tmpEmployee)
 		{
-			while (true) 
+			while (true)
 			{
 				if (tmpEmployee->EmployeeInfo.infoWork.expervalue.experYear < 6)
 				{
-					
+
 					if (tmpEmployee->EmployeeInfo.infoWork.category == 1)
 						++Arr[0];
 					if (tmpEmployee->EmployeeInfo.infoWork.category == 2)
@@ -411,21 +411,21 @@ void ShowInfoParamEmployee(ListItem* begEmployee, const ModelOBJ* form, bool val
 						++Arr[16];
 					if (tmpEmployee->EmployeeInfo.infoWork.category == 3)
 						++Arr[17];
-					
+
 					break;
 				}
-			
+
 			}
 			tmpEmployee = tmpEmployee->next;
 		}
-		
+
 	}
 	ShowResult(Arr, form, value);
 };
 
 void DeleteEmploye(ListItem*& employee, List* list, const ModelOBJ* form, bool& flag)
 {
-	
+
 	if (employee)
 	{
 		const wchar_t* info = L"БУДЕТ ПРОИЗВЕДЕНО УДАЛЕНИЕ ВЫБРАННОГО СОТРУДНИКА! ВЫ УВЕРЕНЫ? "; const uint16_t size(2);
@@ -475,7 +475,7 @@ void DeleteEmploye(ListItem*& employee, List* list, const ModelOBJ* form, bool& 
 								employee = tmp->prev;
 								flag = 1;
 							}
-							delete tmp; 
+							delete tmp;
 						}
 
 						else if (tmp->next)
@@ -501,12 +501,12 @@ void DeleteEmploye(ListItem*& employee, List* list, const ModelOBJ* form, bool& 
 			}
 		}
 	}
-	
+
 };
 
 void EditEmploye(ListItem*& employee, const ModelOBJ* form)
 {
-	
+
 	AddInfoProfile(employee, form);
 	std::cin.ignore();
 };
@@ -540,7 +540,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 		std::wcin.getline(tmpLine, 20); uint16_t find_(0); ListItem* tempEmployee1(nullptr);
 		if (regex_match(tmpLine, std::basic_regex<wchar_t>{ L"^[0-9]{1,5}$" }))
 		{
-			size_t number(_wtoi(tmpLine)); 
+			size_t number(_wtoi(tmpLine));
 			while (tempEmployee)
 			{
 				if (number > tmplist->end->EmployeeInfo.idPerson) break; ++find_;
@@ -551,11 +551,11 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 						uint16_t fixpoz = (find_ / form->heightContent);
 						chois = find_; ListItem* tempEmployee2(nullptr);
 						tempEmployee2 = tempEmployee;
-							for (uint16_t i = 0; i < (find_ - (form->heightContent * fixpoz)); ++i)
-							{
-								tempEmployee1 = tempEmployee2;
-								tempEmployee2 = tempEmployee2->prev;
-							}						
+						for (uint16_t i = 0; i < (find_ - (form->heightContent * fixpoz)); ++i)
+						{
+							tempEmployee1 = tempEmployee2;
+							tempEmployee2 = tempEmployee2->prev;
+						}
 						UpdateBoxContent(tempEmployee1, form, chois, tmplist);
 						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
 						SetCurPos(form->border + 1, (form->coordXY.Y - (form->heightContent + form->border)) + ((find_ - (form->heightContent * fixpoz)) - 1));
@@ -565,8 +565,8 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 					{
 						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
 						SetCurPos(form->border + 1, ((form->coordXY.Y - (form->heightContent + form->border)) + find_) - 1);
-						CoutList(tempEmployee, form); 
-						
+						CoutList(tempEmployee, form);
+
 					}
 					ChoisEmployee(tempEmployee, form, tmplist, flag);
 					tempEmployee = list;
@@ -592,37 +592,39 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 						++iter;
 					--count;
 				}
+
 				if (iter == counttmp)
 				{
-					ReClearScreenContentBoxDraw(form);
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
-					SetCurPos(form->border + 1, form->coordXY.Y - (form->heightContent + form->border));
-					CoutList(tempEmployee, form);
-					
-					while (int key = _getch())
-					{
-						if (key > 99) continue;
 
-						if (GetAsyncKeyState(VK_RIGHT) != 0)
+					if (find_ > form->heightContent)
+					{
+						uint16_t fixpoz = (find_ / form->heightContent);
+						chois = find_; ListItem* tempEmployee2(nullptr);
+						tempEmployee2 = tempEmployee;
+						for (uint16_t i = 0; i < (find_ - (form->heightContent * fixpoz)); ++i)
 						{
-							break;
+							tempEmployee1 = tempEmployee2;
+							tempEmployee2 = tempEmployee2->prev;
 						}
-						else if (GetAsyncKeyState(VK_LEFT) != 0)
-						{
-							break;
-						}
-						else if (GetAsyncKeyState(VK_RETURN) != 0)
-						{
-							ChoisEmployee(tempEmployee, form, tmplist, flag);
-							tempEmployee = list;
-							chois = -1; break;
-						}
+						UpdateBoxContent(tempEmployee1, form, chois, tmplist);
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
+						SetCurPos(form->border + 1, (form->coordXY.Y - (form->heightContent + form->border)) + ((find_ - (form->heightContent * fixpoz)) - 1));
+						CoutList(tempEmployee, form);
+					}
+					else
+					{
+						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FG | FB | FR | BG);
+						SetCurPos(form->border + 1, ((form->coordXY.Y - (form->heightContent + form->border)) + find_) - 1);
+						CoutList(tempEmployee, form);
 
 					}
+					ChoisEmployee(tempEmployee, form, tmplist, flag);
+					tempEmployee = list;
+					chois = -1;
 					return tempEmployee;
 				}
 				tempEmployee = tempEmployee->next;
-				
+
 			}
 			ShowInfoFooter(form, form->infoAddDelete[1]);
 			return list;
@@ -633,7 +635,7 @@ ListItem* SearchEmployee(ListItem* list, const ModelOBJ* form, List* tmplist)
 		{
 			ShowInfoFooter(form, form->infoAddDelete[3]);
 			std::wcin.clear();
-			
+
 		}
 	}
 };
@@ -646,61 +648,61 @@ void DeleteEmployee(List*& listEmployee, int& choisT)
 		bool result(true); uint16_t x(5), y(37); int chois(0); char choisV[size][11] = { " УВЕРЕН! ", " ОТМЕНА " };
 		while (result)
 		{
-			if(choisT != 7)
-			{ 
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); x = 5;
-			chois = 100;
-			DrawButtonEmployeeChoise(chois, x, y, choisV, size); SetCurPos(x, y);
-			std::wcout << info;  x += static_cast<uint16_t>(wcslen(info));
-			DrawButtonEmployeeChoise(chois, x, y, choisV, size);
-
-
-
-			while (int key = _getch())
+			if (choisT != 7)
 			{
-				if (key > 99) continue;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); x = 5;
+				chois = 100;
+				DrawButtonEmployeeChoise(chois, x, y, choisV, size); SetCurPos(x, y);
+				std::wcout << info;  x += static_cast<uint16_t>(wcslen(info));
+				DrawButtonEmployeeChoise(chois, x, y, choisV, size);
 
-				if (GetAsyncKeyState(VK_LEFT) != 0)
+
+
+				while (int key = _getch())
 				{
-					--chois; if (chois < 0) chois = 1;
-					DrawButtonEmployeeChoise(chois, x, y, choisV, size);
+					if (key > 99) continue;
 
-				}
-				else if (GetAsyncKeyState(VK_RIGHT) != 0)
-				{
-					++chois; if (chois == 2) chois = 0;
-					DrawButtonEmployeeChoise(chois, x, y, choisV, size);
-
-				}
-				else if (GetAsyncKeyState(VK_RETURN) != 0)
-				{
-
-					if (chois == 0)
+					if (GetAsyncKeyState(VK_LEFT) != 0)
 					{
-						ListItem* temp = listEmployee->begin;
-						while (temp)
+						--chois; if (chois < 0) chois = 1;
+						DrawButtonEmployeeChoise(chois, x, y, choisV, size);
+
+					}
+					else if (GetAsyncKeyState(VK_RIGHT) != 0)
+					{
+						++chois; if (chois == 2) chois = 0;
+						DrawButtonEmployeeChoise(chois, x, y, choisV, size);
+
+					}
+					else if (GetAsyncKeyState(VK_RETURN) != 0)
+					{
+
+						if (chois == 0)
 						{
-							listEmployee->begin = listEmployee->begin->next;
-							delete temp;
-							temp = listEmployee->begin;
+							ListItem* temp = listEmployee->begin;
+							while (temp)
+							{
+								listEmployee->begin = listEmployee->begin->next;
+								delete temp;
+								temp = listEmployee->begin;
+							}
+							listEmployee->begin = nullptr;
+							listEmployee->end = nullptr;
+							remove("localDB.dat");
+							x = 5; chois = 100;
+							DrawButtonEmployeeChoise(chois, x, y, choisV, size);
+							result = false;
+							break;
 						}
-						listEmployee->begin = nullptr;
-						listEmployee->end = nullptr;
-						remove("localDB.dat");
-						x = 5; chois = 100;
-						DrawButtonEmployeeChoise(chois, x, y, choisV, size);
-						result = false;
-						break;
-					}
-					else if (chois == 1)
-					{
-						x = 5; chois = 100;
-						DrawButtonEmployeeChoise(chois, x, y, choisV, size);
-						result = false;
-						break;
+						else if (chois == 1)
+						{
+							x = 5; chois = 100;
+							DrawButtonEmployeeChoise(chois, x, y, choisV, size);
+							result = false;
+							break;
+						}
 					}
 				}
-			}
 			}
 			else {
 				ListItem* temp = listEmployee->begin;
@@ -716,14 +718,14 @@ void DeleteEmployee(List*& listEmployee, int& choisT)
 			}
 		}
 	}
-	
+
 };
 
 void PrintToTXT(List* listEmployee, const ModelOBJ* form)
 {
 	if (listEmployee->begin)
 	{
-		
+
 		const std::locale utf8_locale = std::locale(std::locale(), new std::codecvt_utf8<wchar_t>());
 		std::wofstream fileData("REPORT.csv");
 		fileData.imbue(utf8_locale);
@@ -732,15 +734,15 @@ void PrintToTXT(List* listEmployee, const ModelOBJ* form)
 			ListItem* tmp = listEmployee->begin;
 			fileData << L"Табельный номер,Инициалы,Специальность,Дата рождения,Пол,Стаж,Розряд,Цех,Участок,Зарплата\n";
 			while (tmp)
-			{	
-				fileData << tmp->EmployeeInfo.idPerson << "," << tmp->EmployeeInfo.SNM << "," 
+			{
+				fileData << tmp->EmployeeInfo.idPerson << "," << tmp->EmployeeInfo.SNM << ","
 					<< tmp->EmployeeInfo.specialty << "," << tmp->EmployeeInfo.DOB;
 				if (tmp->EmployeeInfo.gender) fileData << "," << L"Женский";
-				else fileData << "," <<  L"Мужской";
-				fileData << "," << tmp->EmployeeInfo.infoWork.expervalue.experYear << "," 
-					<< tmp->EmployeeInfo.infoWork.category << ","<< tmp->EmployeeInfo.infoWork.idWorkshop << "," 
+				else fileData << "," << L"Мужской";
+				fileData << "," << tmp->EmployeeInfo.infoWork.expervalue.experYear << ","
+					<< tmp->EmployeeInfo.infoWork.category << "," << tmp->EmployeeInfo.infoWork.idWorkshop << ","
 					<< tmp->EmployeeInfo.infoWork.idDepartment << "," << tmp->EmployeeInfo.salary << std::endl;
-					
+
 				tmp = tmp->next;
 			}
 			ShowInfoFooter(form, form->infoAddDelete[4]);
